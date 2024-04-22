@@ -43,13 +43,11 @@ def bucket_done():
     )
     return jsonify({'msg': 'update done!'})
 
-@app.route('/delete', methods=['POST'])
-def bucket_delete():
-    if request.method == 'POST':
-        num = request.form['num']  
-        return 'Item berhasil dihapus', 
-    else:
-        return 'Metode tidak diizinkan',
+@app.route('/bucket/delete/<int:num>', methods=['DELETE'])
+def bucket_delete(num):
+    db.bucket.delete_one({'num':num})
+    return jsonify({'msg':'Bucket berhasil dihapus'})
+  
 
 
 @app.route("/bucket", methods=["GET"])
